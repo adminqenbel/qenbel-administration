@@ -1,0 +1,24 @@
+﻿name: Keep-Alive Ping
+
+on:
+  schedule:
+    # Every 10 minutes - prevents Render free tier spin-down
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    name: Ping Both Services
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping QenBel Administration
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 https://qenbeladministration.onrender.com/api/health)
+          echo "QenBel Admin status: $STATUS"
+          if [ "$STATUS" = "200" ]; then echo "OK QenBel Admin is alive"; else echo "WARN QenBel Admin returned $STATUS"; fi
+
+      - name: Ping MyHarur Web
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 https://myharur-rvz9.onrender.com/)
+          echo "MyHarur Web status: $STATUS"
+          if [ "$STATUS" = "200" ]; then echo "OK MyHarur Web is alive"; else echo "WARN MyHarur Web returned $STATUS"; fi
