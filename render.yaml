@@ -1,0 +1,41 @@
+﻿# QenBel Administration - Render Deployment Config
+# Google OAuth Web Client: 976428818123-967r95km89gmvicai4et4l6csnt6mq8v.apps.googleusercontent.com
+
+services:
+  - type: web
+    name: qenbel-administration
+    env: node
+    region: oregon
+    plan: free            # Free tier — keep-alive via cron ping
+    buildCommand: cd frontend && npm install && npm run build
+    startCommand: cd frontend && npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NEXT_PUBLIC_QENBEL_SUPABASE_URL
+        value: https://dtkclyrypucngoenwncj.supabase.co
+      - key: NEXT_PUBLIC_QENBEL_SUPABASE_ANON_KEY
+        sync: false   # Set in Render dashboard
+      - key: QENBEL_SUPABASE_SERVICE_ROLE_KEY
+        sync: false   # Set in Render dashboard - NEVER commit this
+      - key: NODE_ENV
+        value: production
+      - key: CRON_SECRET
+        generateValue: true  # Render generates a random secret
+      - key: QENBEL_ADMIN_URL
+        sync: false   # e.g. https://qenbel-administration.onrender.com
+      - key: MYHARUR_URL
+        sync: false   # e.g. https://myharur-web.onrender.com
+
+  # Cron job: ping both services every 10 minutes to prevent Render free-tier spin-down
+  - type: cron
+    name: qenbel-keepalive
+    env: node
+    schedule: "*/10 * * * *"
+    buildCommand: echo "keepalive"
+    startCommand: >
+      curl -s "${QENBEL_ADMIN_URL}/api/cron/ping?secret=${CRON_SECRET}" || true
+    envVars:
+      - key: QENBEL_ADMIN_URL
+        sync: false
+      - key: CRON_SECRET
+        sync: false
