@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState, useEffect, Suspense } from "react";
 import { createBrowserSupabaseClient } from "@/lib/supabase.client";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -66,17 +66,21 @@ function LoginForm() {
       gap: 24,
     }}>
       {/* Brand */}
-      <div style={{ textAlign: "center" }}>
-        <div style={{
-          width: 52, height: 52, borderRadius: 14,
-          background: "white", margin: "0 auto 16px",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          boxShadow: "0 0 0 1px rgba(255,255,255,0.10)",
-        }}>
-          <img src="/logo.png" alt="QenBel" width={36} height={36} style={{ objectFit: "contain" }} />
+      <div style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <div style={{ marginBottom: 12 }}>
+          <img 
+            src="/logo.png" 
+            alt="QenBel Administration" 
+            style={{ 
+              width: "100%", 
+              maxWidth: 240, 
+              height: "auto", 
+              display: "block",
+              objectFit: "contain" 
+            }} 
+          />
         </div>
-        <h1 style={{ fontSize: 22, fontWeight: 800, color: "var(--text-primary)", margin: "0 0 6px" }}>QenBel Administration</h1>
-        <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>Internal access only · Admin accounts only</p>
+        <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>Internal access only • Admin accounts only</p>
       </div>
 
       {/* Error */}

@@ -1,7 +1,6 @@
-"use client";
+﻿"use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import Image from "next/image";
 
 const NAV_ITEMS = [
   { href: "/dashboard",   icon: GridIcon,    label: "Dashboard"   },
@@ -29,25 +28,26 @@ export function Sidebar() {
       overflowY: "auto",
     }}>
       {/* Brand */}
-      <div style={{ padding: "20px 16px 16px", borderBottom: "1px solid var(--border-subtle)" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <div style={{
-            width: 32, height: 32, borderRadius: 8,
-            background: "white", display: "flex", alignItems: "center", justifyContent: "center",
-            flexShrink: 0,
-          }}>
-            <img src="/logo.png" alt="QenBel" width={24} height={24} style={{ objectFit: "contain" }} />
-          </div>
-          <div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: "var(--text-primary)", lineHeight: 1.2 }}>QenBel</div>
-            <div style={{ fontSize: 10, color: "var(--text-muted)", fontWeight: 500, letterSpacing: "0.4px", textTransform: "uppercase" }}>Administration</div>
-          </div>
-        </div>
+      <div style={{ padding: "20px 18px 18px", borderBottom: "1px solid var(--border-subtle)" }}>
+        <Link href="/dashboard" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
+          <img 
+            src="/logo.png" 
+            alt="QenBel Administration" 
+            style={{ 
+              width: "100%", 
+              maxWidth: 180, 
+              height: "auto", 
+              maxHeight: 42,
+              objectFit: "contain",
+              display: "block"
+            }} 
+          />
+        </Link>
       </div>
 
       {/* Navigation */}
-      <nav style={{ padding: "12px 8px", flex: 1, display: "flex", flexDirection: "column", gap: 2 }}>
-        <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.6px", color: "var(--text-muted)", padding: "4px 12px 8px", textTransform: "uppercase" }}>
+      <nav style={{ padding: "16px 10px", flex: 1, display: "flex", flexDirection: "column", gap: 3 }}>
+        <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.8px", color: "var(--text-muted)", padding: "4px 12px 10px", textTransform: "uppercase" }}>
           Control Plane
         </div>
 
@@ -63,17 +63,16 @@ export function Sidebar() {
       </nav>
 
       {/* Footer */}
-      <div style={{ padding: "12px 16px", borderTop: "1px solid var(--border-subtle)" }}>
-        <div style={{ fontSize: 11, color: "var(--text-muted)" }}>
-          <span style={{ display: "block", marginBottom: 2 }}>QenBel Administration</span>
-          <span>Internal use only</span>
+      <div style={{ padding: "16px", borderTop: "1px solid var(--border-subtle)" }}>
+        <div style={{ fontSize: 11, color: "var(--text-muted)", lineHeight: 1.4 }}>
+          <span style={{ display: "block", fontWeight: 600, color: "var(--text-secondary)" }}>QenBel Administration</span>
+          <span>Internal control system</span>
         </div>
       </div>
     </aside>
   );
 }
 
-// Inline SVG icons (no external dep)
 function GridIcon({ size = 16 }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
