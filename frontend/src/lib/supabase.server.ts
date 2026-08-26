@@ -1,9 +1,9 @@
-import { createServerClient } from "@supabase/ssr";
+﻿import { createServerClient } from "@supabase/ssr";
 import { createClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_QENBEL_SUPABASE_URL || "https://dtkclyrypucngoenwncj.supabase.co";
-const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_QENBEL_SUPABASE_ANON_KEY || "placeholder-anon-key";
+const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_QENBEL_SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR0a2NseXJ5cHVjbmdvZW53bmNqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc2NzYxMzUsImV4cCI6MjEwMzI1MjEzNX0.nqmOnFb_J-4Eqpj-tzXSVqsOCHQmZcdpOF8W9Bzgn7I";
 const SUPABASE_SERVICE_KEY = process.env.QENBEL_SUPABASE_SERVICE_ROLE_KEY || "";
 
 export async function createServerSupabaseClient() {
@@ -30,3 +30,4 @@ export function createServiceSupabaseClient() {
     auth: { autoRefreshToken: false, persistSession: false },
   });
 }
+
